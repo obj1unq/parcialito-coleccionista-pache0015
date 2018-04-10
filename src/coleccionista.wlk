@@ -66,8 +66,46 @@
 
 // PUNTO 1: COLECCIONES
 object coleccionista {
+	var _galeria = #{}
 	
-	//TODO: Completar la implementacion de este objeto		
+	method agregarElemento(unElemento){
+		_galeria.add(unElemento)
+	}
+	
+	method quitarElemento(unElemento){
+		_galeria.remove(unElemento)
+	}
+	
+	method objetosFragiles(){
+		return _galeria.filter({_elemento=> _elemento.esFragil()})
+	}
+	
+	method objetoFragilMasCaro(){
+		return self.objetosFragiles().max({_elemento=> _elemento.valor() })
+	}
+	
+	method valorEnObjetosFragiles(){
+		return self.objetosFragiles().sum({_elemento=> _elemento.valor() })
+	}
+	
+	method valorEnCategoria(unaCategoria){
+		return self.galeriaSegunCategoria(unaCategoria).sum({_elemento=> _elemento.valor()})
+	}
+			method galeriaSegunCategoria(categoria){
+				return _galeria.filter({_elemento=>_elemento.categoria() == categoria})
+			}
+			
+	method existeElementoDe(unaCategoria){
+		return _galeria.any({_elemento=>_elemento.categoria() == unaCategoria})
+	}
+	
+	method categorias(){
+		return (_galeria.map({_elemento=>_elemento.categoria()})).asSet()
+	}
+	
+	method todosValiosos(){
+		return _galeria.all({_elemento=>_elemento.valor() > 600})
+	}
 
 }
 
@@ -108,8 +146,37 @@ object musica {
 
 // PUNTO 2: POLIMORFISMO. 
 object guitarraElectrica {
-   //TODO Completar la implementacion de este objeto
+	
+	var _microfono = microfonoGibson
+	var _estuche= estucheRigido
+	
+	method cambiarEstuche(estuche){
+		_estuche=estuche
+	}
+	method cambiarMicrofono(microfono){
+		_microfono=microfono
+	}
+	
+   method esFragil(){
+   	return _estuche.esFragil()
+   }
+   method valor(){
+   	return 10000 + _microfono.valor()
+   }
+   method categoria() = musica
+  
 }
-
-//TODO: agregar los objetos que falten! Si no agregaste ninguno repensá tu solución; pista: el punto se llama "POLIMORFISMO" 
+object microfonoGibson{
+	method valor()= 1000
+}
+object microfonoDiMazio{
+	method valor()= 800
+}
+object estucheRigido{
+	method esFragil()= false
+}
+object estucheFlexible{
+	method esFragil()=true
+}
+ 
 
