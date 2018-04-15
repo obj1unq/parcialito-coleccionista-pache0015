@@ -1,3 +1,9 @@
+/*
+ /* CORRECCION: Nota: MB
+ * Unico detalle metido por ahí, hay unos paréntesis demás: obj.mes1().mes2() envía el mensaje mes2 al objeto devuelto por obj.mes1().
+ *
+ */
+
 /*     Parcialito: Coleccionista
  * 	
  *   Se trata de una aplicación que sirve para que una persona, dueña de una galería de elementos coleccionables
@@ -100,6 +106,7 @@ object coleccionista {
 	}
 	
 	method categorias(){
+		//CORRECCION, paréntesis innecesarios. esto anda: _galeria.map({_elemento=>_elemento.categoria()}).asSet()
 		return (_galeria.map({_elemento=>_elemento.categoria()})).asSet()
 	}
 	
